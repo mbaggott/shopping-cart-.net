@@ -1,0 +1,66 @@
+﻿@model ShoppingCart.Models.Customer
+
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/Scripts/checkout.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="~/Scripts/jquery.creditCardValidator.js"></script>
+}
+
+<h2>Payment Details</h2>
+
+@* Create visual interaction for user to enter payment details and carry out validation*@
+<table class="table" style="position:relative; width:510px; top:30px;">
+    <tr style="position:relative; height:80px;">
+        <td style="width:240px;">
+            Credit Card Number:<br />
+            <input type="text" id="ccNumber" style="border:inset;" />
+            <span id="ccCross" style="display:none;"><img src="/Content/Images/cross.png" /></span>
+            <span id="ccTick" style="display:none;"><img src="/Content/Images/tick.png" /></span>
+        </td>
+        <td style="width:270px;">
+            Expiry:<br />
+            <select id="month">
+                @for (int i = 1; i <= 12; i++)
+                {
+                    <option value=i id="monthElement" style="width:50px;">@i</option>
+                }
+            </select>
+            <select id="year">
+                @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(4).Year; i++)
+                {
+                    <option value=i id="selection" style="width:50px;">@i</option>
+                }
+            </select>
+            <span class="expiry"></span>
+            <span id="expCross" style="display:none;"><img src="/Content/Images/cross.png" /></span>
+            <span id="expTick" style="display:none;"><img src="/Content/Images/tick.png" /></span>
+        </td>
+    </tr>
+    <tr style="position:relative; height:80px;">
+        <td>
+            CVV:<br />
+            <input type="text" id="cvv" style="width:50px; border:inset;" />
+            <span id="cvvCross" style="display:none;"><img src="/Content/Images/cross.png" /></span>
+            <span id="cvvTick" style="display:none;"><img src="/Content/Images/tick.png" /></span>
+        </td>
+        <td>
+            Name:<br />
+            <input type="text" id="name" style="width:200px; border:inset;" />
+            <span id="nameCross" style="display:none;"><img src="/Content/Images/cross.png" /></span>
+            <span id="nameTick" style="display:none;"><img src="/Content/Images/tick.png" /></span>
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <input id="submitBtn" type="button" value="Make Payment" class="btn btn-default" />
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,129 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+
+/* Set custom image sizes */
+.productImage {
+	width: 100px;
+}
+
+.categoryImage {
+	width: 50%;
+}
+
+/* Reduce size of product description on shop page */
+.productDescription {
+    font-size: 75%;
+    width: 50%;
+}
+
+/* Reduce size of description header on shop page */
+.descriptionWidth {
+    width: 30% !important;
+}
+
+/* Custome settings for add and remove buttons on shop page */
+.cartAddRemove {
+	width: 40px;
+	cursor: pointer;
+}
+
+/* Custom settings for quantity text bos on shop page */
+.cartQTY {
+	width: 40px;
+}
+
+/* Make the checkout toal bold */
+#checkoutTotal {
+    font-weight: bold;
+    padding-top: 3%;
+}
+
+/* Custom <hr> rules for checkout page */
+.checkoutRule {
+    color: black !important;
+    border-bottom: 1px solid black !important;
+    width: 75%;
+}
+
+
+/* Custom <hr> padding for top hr on checkout page (seperates table from header) */
+#ruleOne {
+    padding-top: 5%;
+}
+
+/* Remove border from table rows inside a table (removes horizontal lines) */
+.table tr td
+        {
+            border-top: 0px !important;
+            border-bottom: 0px !important;
+        }
+
+/* Custom CSS for tables */
+#productTable {
+    width: 85% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkoutTable {
+    width: 75% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.totalsTable {
+    width: 75% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Align table data cells to the right */
+.alignRight {
+    text-align: right;
+}
+
+.summary {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+.spacer {
+    width: 15%;
+}
+
+.alignTop {
+    vertical-align: top;
+}
+
+.summaryAlignRight {
+    text-align: right;
+}
+
+#summaryButton {
+    margin-left: calc(25% / 2) !important;
+}
+
+.summaryTotal {
+    font-weight: bold;
+}

@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<ShoppingCart.Models.Product>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/shop.js"></script>
+}
+
+<h2>Shopping Cart</h2>
+
+<br />
+<br />
+
+@* Display Shopping Cart. *@
+<table class="table" id="productTable">
+    <tr>
+        <th>
+            Image
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Sub Total
+        </th>
+        <th>
+            Quantity
+        </th>
+    </tr>
+
+    @* Loop through Cart Items. *@
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img class="productImage" src="@item.ImageUrl" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortDescription)
+            </td>
+            <td>
+                @String.Format("{0:c}", item.Price)
+            </td>
+            <td id="subTotal_@item.ProductID">
+            </td>
+            <td>
+                <img onclick="addCart(@item.ProductID)" class="cartAddRemove" src="/Content/Images/cart_add.png" />
+                <img onclick="removeCart(@item.ProductID)" class="cartAddRemove" src="/Content/Images/cart_remove.png" />
+                <input id="inputQTY_@item.ProductID" data-onload="updateCartQTY(@item.ProductID)" class="cartQTY" type="text" readonly />
+            </td>
+        </tr>
+    }
+
+    <tr>
+        <th colspan="4" class="alignRight">
+            Total Price:
+        </th>
+        <td id="totalCost">
+        </td>
+    </tr>
+
+    <tr></tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink("Reset Cart", "Reset")
+        </td>
+        <td>
+            @Html.ActionLink("Checkout", "../Checkout")
+        </td>
+    </tr>
+
+</table>
+
+<br />
+
+
+@* Navigation for Paged List. *@
+<div id='Paging' style="text-align:center">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+
+

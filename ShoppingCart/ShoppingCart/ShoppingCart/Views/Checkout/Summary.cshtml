@@ -1,0 +1,89 @@
+﻿@using ShoppingCart.Models
+@using System.Linq
+@model IEnumerable<Order_Products>
+
+@functions {
+    public string multiply(decimal a, decimal b)
+    {
+        
+        return string.Format("{0:N}", a * b);
+    }
+
+    public Product getProduct(int id)
+    {
+        using (ProductsEntities database = new ProductsEntities())
+        {
+            var prd = from prod in database.Products
+                       where prod.ProductID == id
+                       select prod;
+
+            Product product = prd.FirstOrDefault();
+
+            return product;
+                        
+        }
+    }
+}
+
+
+
+
+@{
+    ViewBag.Title = "Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order Summary</h2>
+<br/>
+<p>Thank you for your payment.</p>
+<br/>
+<div class="summary">
+    <div class="inline alignTop">
+        <h4>Shipping Address</h4>
+        @foreach (var item in ViewBag.ModelCust)
+        {
+            <div>@item.FirstName &nbsp; @item.LastName</div>
+            <div>@item.Address</div>
+            <div>@item.Suburb</div>
+            <div>@item.State &nbsp; @item.Postcode</div>
+            <script>alert(@item);</script>
+        }
+    </div>
+    <div class="spacer inline alignTop"></div>
+    <div class="inline alignTop">
+        <h4>Order Details</h4>
+        <table>
+            @{ decimal total = 0; 
+
+                foreach (var item in Model)
+                {
+                    
+                    total = total + item.Price * item.Quantity;
+                    
+                    <tr>
+                        <td>@getProduct(item.ProductID).ShortDescription</td>
+                        <td class ="summaryAlignRight" width="70px">Qty @item.Quantity</td>
+                        <td class="summaryAlignRight" width="100px">Subtotal: </td>
+                        <td class="summaryAlignRight"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$@multiply(item.Price, item.Quantity) </td>
+                    </tr>
+                }
+            
+            <tr>
+                <td>&nbsp;</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="summaryTotal summaryAlignRight">Total: </td>
+                <td class="summaryTotal summaryAlignRight">$@string.Format("{0:N}", total)</td>
+            </tr>
+            }
+        </table>
+    </div>
+</div>
+<br/>
+<br />
+<input id ="summaryButton" type="submit" value="Return to Shop" class="btn btn-default" onclick="parent.location='../Shop'" />

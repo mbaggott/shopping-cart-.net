@@ -1,0 +1,85 @@
+﻿@using ShoppingCart.Models
+@model IEnumerable<Product>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Shop";
+}
+    
+<script src="~/Content/shop.js"></script>
+
+@section Scripts {
+
+    <script src="~/Scripts/shop.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="~/Scripts/jquery.creditCardValidator.js"></script>
+
+}
+
+
+    
+
+<h2>Shop</h2>
+
+<p>Hello from the Shop page!</p>
+
+@using (Html.BeginForm("Index", "Shop", FormMethod.Get))
+{
+    <p>
+        Category: @Html.DropDownList("productCategory", "All")
+        &nbsp;&nbsp;&nbsp;Product Title: @Html.TextBox("searchString")
+        &nbsp;&nbsp;&nbsp;<input type="submit" value="Filter" />
+    </p>
+}
+
+<table class="table" id="productTable">
+    <tr>
+        <th>
+            Category
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th class="descriptionWidth">
+            Description
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img class="categoryImage" src="@item.Category.ImageUrl" /><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(modelItem => item.Category.Title)</b>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td class = "productDescription descriptionWidth">
+                @Html.DisplayFor(modelItem => item.LongDescription)
+            </td>
+            <td>
+                <img class = "productImage"src = "@item.ImageUrl"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <img onclick = "addCart(@item.ProductID)" class="cartAddRemove" src="/Content/Images/cart_add.png" />
+                <img onclick = "removeCart(@item.ProductID)" class="cartAddRemove" src="/Content/Images/cart_remove.png" />
+                <input id="inputQTY_@item.ProductID" data-onload="updateQTY(@item.ProductID)" class="cartQTY" type="text" readonly />
+            </td>
+        </tr>
+    }
+
+</table>
